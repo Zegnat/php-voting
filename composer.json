@@ -1,0 +1,42 @@
+{
+    "name": "zegnat/voting",
+    "type": "library",
+    "description": "Collection of classes to handle the counting of votes.",
+    "homepage": "https://github.com/Zegnat/php-voting",
+    "license": "0BSD",
+    "authors": [
+        {
+            "name": "Martijn van der Ven",
+            "email": "martijn@vanderven.se",
+            "homepage": "https://vanderven.se/martijn/",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "~7.2.0",
+        "equip/structure": "^1.1"
+    },
+    "require-dev": {
+        "phan/phan": "^0.12.8",
+        "phpunit/phpunit": "^7",
+        "squizlabs/php_codesniffer": "^3"
+    },
+    "autoload": {
+        "psr-4": {
+            "Zegnat\\Voting\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Zegnat\\Voting\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "phpunit --color --bootstrap vendor/autoload.php --testdox tests",
+        "analyse": "phan --color --exclude-directory-list vendor -l src -l tests -l vendor/equip/structure",
+        "check-style": "phpcs -p --standard=PSR2 --runtime-set ignore_errors_on_exit 1 --runtime-set ignore_warnings_on_exit 1 src tests"
+    },
+    "config": {
+        "sort-packages": true
+    }
+}
