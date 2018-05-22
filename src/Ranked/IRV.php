@@ -96,8 +96,10 @@ final class IRV
                     $results[$vote][] = $ballot;
                 }
             }
-            usort($results, function ($a, $b): int {
-                return ($a < $b) ? -1 : intval($a > $b);
+            uasort($results, function ($a, $b): int {
+                $a = count($a);
+                $b = count($b);
+                return ($a > $b) ? -1 : intval($a < $b);
             });
             $total = array_reduce($results, function ($carry, $item): int {
                 return $carry + count($item);
@@ -107,10 +109,13 @@ final class IRV
             } elseif (count($results) === 2) {
                 return new Set(array_keys($results));
             } else {
-                end($results);
-                $last = key($results);
-                $pool = $results[$last];
-                $results[$last] = [];
+                foreach (array_reverse($results) as $loser => $ballots) {
+                    if (count($ballots) > 0) {
+                        $results[$loser] = [];
+                        $pool = $ballots;
+                        break;
+                    }
+                }
             }
         }
         return new Set($this->candidates);
