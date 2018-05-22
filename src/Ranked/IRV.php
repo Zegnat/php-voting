@@ -66,9 +66,9 @@ final class IRV
     {
         $ballot = $ballot->toArray();
         $diff = count(array_diff($ballot, $this->candidates));
-        if ($this->variation & self::STRICT !== 0 && $diff !== 0 ||
-            $this->variation & self::FULL !== 0 && count($ballot) - $diff !== count($this->candidates) ||
-            $this->variation & self::OPTIONAL !== 0 && count($ballot) === $diff
+        if (($this->variation & self::STRICT) !== 0 && $diff !== 0 ||
+            ($this->variation & self::FULL) !== 0 && count($ballot) - $diff !== count($this->candidates) ||
+            ($this->variation & self::OPTIONAL) !== 0 && count($ballot) === $diff
         ) {
             return $this;
         }
